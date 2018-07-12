@@ -39,7 +39,7 @@ export default class Login extends React.Component {
                     <Button 
                         style={styles.loginBtn} 
                         block 
-                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.3:80/notepad/api/api/login.php', (data) => navigate('Dashboard'))}
+                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.4:80/notepad/api/api/login.php', (data) => navigate('Dashboard'))}
                     >
                         <Text>LOG IN</Text>
                     </Button>

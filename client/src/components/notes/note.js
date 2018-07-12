@@ -31,9 +31,9 @@ export default class Note extends React.Component {
                             />
                             <Textarea 
                                 rowSpan={3} 
-                                value={this.state.text} 
                                 value={((this.props.new) ? this.state.text : this.props.text)} 
-                                bordered placeholder="Write your note :D" 
+                                onChangeText={(text) => this.setState({text})} 
+                                bordered placeholder="Write your note :)" 
                                 style={{width: '100%'}}
                             />
                         </Body>

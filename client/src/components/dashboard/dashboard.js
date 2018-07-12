@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Container, Text } from 'native-base';
+import { StyleSheet, ScrollView } from 'react-native';
+import { Container, Text} from 'native-base';
 
 import AddNote from '../addnote/index';
-import Note from '../notes/note';
+import SwipeItem from '../swipeitem/item';
+// import Note from '../notes/note';
 
 import * as h from '../../util/fetch/fetching';
 
@@ -17,34 +18,46 @@ export default class Dashboard extends React.Component {
         
         const { navigate } = this.props.navigation; 
         return (
-            <Container>
-                <Text>MY DASHBOARD 22</Text>
-                {
-                    this.state.notes.map((n) => {
-                        return (
-                            <Note 
-                                title={n.note_title} 
-                                text={n.note_text} 
-                                userid={n.user_id} 
-                                new={false}
-                            />
-                        )
-                    })
-                }
-                <AddNote />                
-            </Container>
+            <ScrollView>
+                <Container>
+                    <Text>MY DASHBOARD</Text>
+                    {this.state.notes.map((n) => {
+                            return (
+                                <SwipeItem 
+                                    title={n.note_title} 
+                                    noteid={n.note_id} 
+                                    deleteNote={(noteid) => this.deleteNote(noteid)}
+                                />                             
+                            )
+                        })
+                    }
+                    <AddNote />                
+                </Container>
+            </ScrollView>
         );
     }
 
     componentDidMount() {
-        h.fetching(null, 'GET', `http://192.168.1.3:80/notepad/api/api/get.php?userid=${1}`, (data) => {
+        h.fetching(null, 'GET', `http://192.168.1.4:80/notepad/api/api/get.php?userid=${1}`, (data) => {
             console.log(data);
             this.setState({notes: data})
         });
     }
 
-}
+    deleteNote = (noteid) => {
+        console.log('noteid'+noteid)
+        h.fetching(null, 'GET', `http://192.168.1.4:80/notepad/api/api/delete.php?note_id=${noteid}`, (data) => {
+            let mydata = data;
+            if(mydata.status === 200) {
+                this.state.notes.filter(n => {
+                    return n.note_id === noteid
+                })
+                console.warn(this.state.notes)
+            }
+        })
+    }
 
+}
 
 const styles = StyleSheet.create({
     container: {
