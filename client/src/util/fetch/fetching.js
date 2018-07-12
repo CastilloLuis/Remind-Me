@@ -56,7 +56,7 @@ export const fetching = (data, method, url, cb) => {
                     }
                 };
                 fetch(url, datajson)
-                .then((res) => res.json())
+                .then((res) => res.text())
                 .then((data) => {
                     console.log(data);                    
                     cb(data);

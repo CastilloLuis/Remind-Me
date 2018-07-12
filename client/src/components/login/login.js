@@ -6,11 +6,12 @@ import * as h from '../../util/fetch/fetching';
 export default class Login extends React.Component {
     constructor() {
         super();
-        this.state({
+        this.state = {
             username: '',
             password: ''
-        });
+        }
     }
+
     render() {
         const { navigate } = this.props.navigation;
         return (
@@ -22,6 +23,7 @@ export default class Login extends React.Component {
                         <Input 
                             name="username" 
                             value={this.state.username}
+                            onChangeText={(username) => this.setState({username})}
                         />
                     </Item>
                         <Item floatingLabel last>
@@ -30,12 +32,13 @@ export default class Login extends React.Component {
                             name="password" 
                             secureTextEntry={true} 
                             value={this.state.password}
+                            onChangeText={(password) => this.setState({password})}
                         />
                     </Item>
                     <Button 
                         style={styles.loginBtn} 
                         block 
-                        onPress={h.fetching(this.state, 'POST', 'http://192.168.1.5:80/notepad/api/api/login.php', (data) => this.handleLogin(data))}
+                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.6:80/notepad/api/api/login.php', (data) => this.handleLogin(data))}
                     >
                         <Text>LOG IN</Text>
                     </Button>
@@ -49,8 +52,9 @@ export default class Login extends React.Component {
         );
     }
 
-    handleLogin = () => {
-        if(data.status === 200) {
+    handleLogin = (data) => {
+        let mydata = data;
+        if(mydata.status === 200) {
             navigate('Dashboard');
         } else {
             navigate('Login');

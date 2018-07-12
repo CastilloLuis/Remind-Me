@@ -49,16 +49,12 @@ export default class Register extends React.Component {
                         block 
                         onPress={() => {
                             Keyboard.dismiss;
-                            h.fetching(this.state, 'POST', 'http://192.168.1.5:80/notepad/api/api/register.php', (data) => this.handleRegister(data))
+                            h.fetching(this.state, 'POST', 'http://192.168.1.6:80/notepad/api/api/register.php', (data) => this.handleRegister(data))
                             }
                         }
-                    ><Text>REGISTER</Text></Button>
-                              <Button onPress={()=> Toast.show({
-              text: 'Wrong password!',
-              buttonText: 'Okay'
-            })}>
-            <Text>Toast</Text>
-          </Button>
+                    >
+                        <Text>REGISTER</Text>
+                    </Button>
                 </Form>
                 </Content>               
             </Container>
@@ -81,7 +77,7 @@ export default class Register extends React.Component {
                 buttonTextStyle: {color: 'white'},
                 buttonStyle: {backgroundColor: '#00db5b'},
                 duration: 2000,
-                onClose: () => navigate('Login')
+                onClose: navigate('Home')
             });
         } else {
             console.log('nott')
@@ -99,5 +95,6 @@ const styles = StyleSheet.create({
     registerBtn: {
         width: '80%',
         alignSelf: 'center',
+        marginTop: 50
     }
 });
