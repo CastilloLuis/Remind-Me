@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Keyboard } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button , Text, Toast} from 'native-base';
 import * as h from '../../util/fetch/fetching';
 
@@ -47,8 +47,18 @@ export default class Register extends React.Component {
                     <Button 
                         style={styles.registerBtn} 
                         block 
-                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.5:80/notepad/api/api/register.php', (data) => this.handleLogin(data))}
+                        onPress={() => {
+                            Keyboard.dismiss;
+                            h.fetching(this.state, 'POST', 'http://192.168.1.5:80/notepad/api/api/register.php', (data) => this.handleRegister(data))
+                            }
+                        }
                     ><Text>REGISTER</Text></Button>
+                              <Button onPress={()=> Toast.show({
+              text: 'Wrong password!',
+              buttonText: 'Okay'
+            })}>
+            <Text>Toast</Text>
+          </Button>
                 </Form>
                 </Content>               
             </Container>
@@ -61,17 +71,21 @@ export default class Register extends React.Component {
         });
     }
 
-    handleLogin = (data) => {
-        console.log(data)
-        console.log('asdads')
-        if(data.status === 200) {
+    handleRegister = (data) => {
+        let mydata = data;
+        if(mydata.status === 200) {
+            console.log('asdasd')
             Toast.show({
                 text: 'Welcome to the family!',
                 buttonText: 'Okay',
-                buttonStyle: {backgroundColor: 'green', color: 'white'},
+                buttonTextStyle: {color: 'white'},
+                buttonStyle: {backgroundColor: '#00db5b'},
+                duration: 2000,
+                onClose: () => navigate('Login')
             });
+        } else {
+            console.log('nott')
         }
-
     }
 }
 

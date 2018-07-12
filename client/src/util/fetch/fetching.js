@@ -58,8 +58,8 @@ export const fetching = (data, method, url, cb) => {
                 fetch(url, datajson)
                 .then((res) => res.json())
                 .then((data) => {
+                    console.log(data);                    
                     cb(data);
-                    console.log(data);
                 })
                 .catch((err) => {
                     console.log('here error')
