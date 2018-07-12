@@ -10,6 +10,7 @@ export default class Login extends React.Component {
             username: '',
             password: ''
         }
+        this.nav;
     }
 
     render() {
