@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation';
 import Login from './src/components/login/login.js';
 import Register from './src/components/register/register';
 import Home from './src/components/home/home';
+import Dashboard from '../dashboard/dashboard';
 
 export default class App extends React.Component {
 
@@ -22,7 +23,8 @@ const Routes = createStackNavigator({
     }
   },
   Login: { screen: Login },
-  Register: { screen: Register }
+  Register: { screen: Register },
+  Dashboard: { screen: Dashboard }
 })
 
 const styles = StyleSheet.create({

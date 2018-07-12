@@ -1,8 +1,7 @@
 import React from 'react';
-import {
-    StyleSheet,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button , Text} from 'native-base';
+import * as helpers from '../../util/fetch/fetching';
 
 export default class Login extends React.Component {
     render() {
@@ -29,6 +28,10 @@ export default class Login extends React.Component {
             </Container>
         );
     }
+}
+
+const login = () => {
+    helpers.generateJSON
 }
 
 const styles = StyleSheet.create({
