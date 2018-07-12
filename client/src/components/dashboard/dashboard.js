@@ -49,10 +49,12 @@ export default class Dashboard extends React.Component {
         h.fetching(null, 'GET', `http://192.168.1.4:80/notepad/api/api/delete.php?note_id=${noteid}`, (data) => {
             let mydata = data;
             if(mydata.status === 200) {
-                this.state.notes.filter(n => {
-                    return n.note_id === noteid
+                const newstate = this.state.notes.filter(n => {
+                    return n.note_id !== noteid
                 })
-                console.warn(this.state.notes)
+                console.warn(this.state.notes);
+                console.log(newstate)
+                this.setState({notes: newstate});
             }
         })
     }
