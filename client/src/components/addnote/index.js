@@ -5,6 +5,8 @@ import OpenButton from './addbutton';
 import CloseButton from './closebutton';
 import Note from '../notes/note';
 
+import * as h from '../../util/fetch/fetching';
+
 export default class AddNote extends React.Component {
     state = {
         modalVisible: false,
@@ -36,13 +38,24 @@ export default class AddNote extends React.Component {
                         </Button>
                     </View>
 
-                    <Note />
-                    
+                    <Note 
+                        saveNote={(form) => this.saveNote(form)}
+                    />
+
                 </Modal>
+
                 <OpenButton 
                     setModalVisible={() => this.setModalVisible()}
                 />
+
             </Container>
           );
+    }
+
+    saveNote = (form) => {
+        console.log(form)
+        h.fetching(form, 'POST', 'http://192.168.1.3:80/notepad/api/api/add.php', (data) => {
+            console.log(data);
+        });
     }
 }

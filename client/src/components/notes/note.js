@@ -3,6 +3,19 @@ import { StyleSheet } from 'react-native';
 import { Content, Card, Textarea, Input, CardItem, Body, Row, Col, Grid, Button, Text, Left, Right,} from 'native-base';
 
 export default class Note extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            text: '',
+            userid: 1
+        }
+    }
+
+    saveNote = (state) => {
+        this.props.saveNote(state);
+    }
+    
     render() {
         return(
             <Content>
@@ -11,10 +24,14 @@ export default class Note extends React.Component {
                         <Body>
                             <Input 
                                 placeholder="Title of your note" 
+                                value={this.state.title} 
+                                onChangeText={(title) => this.setState({title})} 
                                 style={{width: '100%'}}
                             />
                             <Textarea 
                                 rowSpan={3} 
+                                value={this.state.text} 
+                                onChangeText={(text) => this.setState({text})} 
                                 bordered placeholder="Write your note :D" 
                                 style={{width: '100%'}}
                             />
@@ -25,7 +42,10 @@ export default class Note extends React.Component {
                             <Row>
                                 <Left>
                                     <Col>
-                                        <Button success>
+                                        <Button 
+                                            success 
+                                            onPress={() => this.saveNote(this.state)}
+                                        >
                                             <Text>SAVE</Text>
                                         </Button>   
                                     </Col>
