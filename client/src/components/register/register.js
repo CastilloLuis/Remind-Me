@@ -4,13 +4,16 @@ import {
 } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button , Text} from 'native-base';
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
     render() {
-        const { navigate } = this.props.navigation;
         return (
             <Container>
                 <Content>
                 <Form>
+                    <Item floatingLabel>
+                        <Label>E-mail</Label>
+                        <Input />
+                    </Item>                    
                     <Item floatingLabel>
                         <Label>Username</Label>
                         <Input />
@@ -19,11 +22,7 @@ export default class Login extends React.Component {
                         <Label>Password</Label>
                         <Input />
                     </Item>
-                    <Button style={styles.loginBtn} block><Text>LOG IN</Text></Button>
-                    <Button danger
-                        onPress = {() => navigate('Register')}> 
-                        <Text> Or sign up !!</Text> 
-                    </Button>
+                    <Button style={styles.registerBtn} block><Text>REGISTER</Text></Button>
                 </Form>
                 </Content>               
             </Container>
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    loginBtn: {
+    registerBtn: {
         width: '80%',
         alignSelf: 'center',
     }
