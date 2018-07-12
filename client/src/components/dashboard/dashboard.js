@@ -29,9 +29,9 @@ export default class Dashboard extends React.Component {
                                     deleteNote={(noteid) => this.deleteNote(noteid)}
                                 />                             
                             )
-                        })
-                    }
-                    <AddNote />                
+                        }).reverse()
+                    }       
+                    <AddNote />        
                 </Container>
             </ScrollView>
         );

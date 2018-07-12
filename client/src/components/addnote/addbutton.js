@@ -13,12 +13,12 @@ export default class OpenButton extends React.Component {
             <View style={{ flex: 1 }}>
                 <Fab
                     style={{ backgroundColor: 'red' }}
-                        position="bottomRight" 
-                        onPress={() => {
-                                console.log('adding2 item');
-                                this.openModal(true);
-                            }
+                    position="bottomRight" 
+                    onPress={() => {
+                            console.log('adding2 item');
+                            this.openModal(true);
                         }
+                    }
                     >
                     <Icon name="add" />
                 </Fab>
