@@ -15,7 +15,12 @@ export default class App extends React.Component {
 }
 
 const Routes = createStackNavigator({
-  Home: { screen: Home },
+  Home: { 
+    screen: Home,
+    navigationOptions: {
+      header: null,
+    }
+  },
   Login: { screen: Login },
   Register: { screen: Register }
 })
