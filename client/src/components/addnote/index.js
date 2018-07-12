@@ -1,7 +1,9 @@
 import React from 'react';
 import {Modal, Text, TouchableHighlight, View} from 'react-native';
-import { Container } from 'native-base';
+import { Container, Button, Right, Icon } from 'native-base';
 import OpenButton from './addbutton';
+import CloseButton from './closebutton';
+import Note from '../notes/note';
 
 export default class AddNote extends React.Component {
     state = {
@@ -21,18 +23,21 @@ export default class AddNote extends React.Component {
                     onRequestClose={() => {
                         alert('Modal has been closed.');
                     }}>
-                    <View style={{marginTop: 22}}>
-                        <View>
-                        <Text>Hello World!</Text>
-
-                        <TouchableHighlight
+                    
+                    <View style={{marginTop: 20, marginLeft: '82%', width: '100%'}}>
+                        <Button
+                            transparent
+                            dark 
+                            style={{width: 50}}
                             onPress={() => {
-                            this.setModalVisible(!this.state.modalVisible);
-                            }}>
-                            <Text>Hide Modal</Text>
-                        </TouchableHighlight>
-                        </View>
+                                this.setModalVisible(!this.state.modalVisible);
+                            }}> 
+                            <Icon name='close' />
+                        </Button>
                     </View>
+
+                    <Note />
+                    
                 </Modal>
                 <OpenButton 
                     setModalVisible={() => this.setModalVisible()}

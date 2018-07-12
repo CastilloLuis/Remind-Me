@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Content, Card, Textarea, Input, CardItem, Body } from 'native-base';
+import { Content, Card, Textarea, Input, CardItem, Body, Row, Col, Grid, Button, Text, Left, Right,} from 'native-base';
 
 export default class Note extends React.Component {
     render() {
@@ -9,9 +9,36 @@ export default class Note extends React.Component {
                 <Card>
                     <CardItem>
                         <Body>
-                            <Input placeholder="Title of your note"/>
-                            <Textarea rowSpan={5} bordered placeholder="Write your note :)" />
+                            <Input 
+                                placeholder="Title of your note" 
+                                style={{width: '100%'}}
+                            />
+                            <Textarea 
+                                rowSpan={3} 
+                                bordered placeholder="Write your note :D" 
+                                style={{width: '100%'}}
+                            />
                         </Body>
+                    </CardItem>
+                    <CardItem>
+                        <Grid>
+                            <Row>
+                                <Left>
+                                    <Col>
+                                        <Button success>
+                                            <Text>SAVE</Text>
+                                        </Button>   
+                                    </Col>
+                                </Left>
+                                <Right>
+                                    <Col>
+                                        <Button danger>
+                                            <Text>CANCEL</Text>
+                                        </Button>                                                                 
+                                    </Col>
+                                </Right>
+                            </Row>
+                        </Grid>
                     </CardItem>
                 </Card>
             </Content>
