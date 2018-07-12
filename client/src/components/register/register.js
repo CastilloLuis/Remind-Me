@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button , Text} from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button , Text, Toast} from 'native-base';
 import * as h from '../../util/fetch/fetching';
 
 export default class Register extends React.Component {
@@ -22,32 +22,58 @@ export default class Register extends React.Component {
                     <Item floatingLabel>
                         <Label>E-mail</Label>
                         <Input 
-                            value={this.state.email}
-                            />
+                            value={this.state.email} 
+                            name="email"
+                            onChangeText={(email) => this.setState({email})}
+                        />
                     </Item>                    
                     <Item floatingLabel>
                         <Label>Username</Label>
                         <Input 
-                            value={this.state.username}
+                            value={this.state.username} 
+                            name="username" 
+                            onChangeText={(username) => this.setState({username})}
                         />
                     </Item>
                         <Item floatingLabel last>
                         <Label>Password</Label>
                         <Input 
-                            value={this.state.password}
+                            value={this.state.password} 
+                            secureTextEntry={true} 
+                            name="password" 
+                            onChangeText={(password) => this.setState({password})}
                         />
                     </Item>
                     <Button 
                         style={styles.registerBtn} 
                         block 
-                        onPress={h.fetching(this.state, 'POST', 'htpp://localhost:80/api/api/register.php', () => {navigate('Dashboard')})}><Text>REGISTER</Text></Button>
+                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.5:80/notepad/api/api/register.php', (data) => this.handleLogin(data))}
+                    ><Text>REGISTER</Text></Button>
                 </Form>
                 </Content>               
             </Container>
         );
     }
-}
 
+    handleChange = name => (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
+    handleLogin = (data) => {
+        console.log(data)
+        console.log('asdads')
+        if(data.status === 200) {
+            Toast.show({
+                text: 'Welcome to the family!',
+                buttonText: 'Okay',
+                buttonStyle: {backgroundColor: 'green', color: 'white'},
+            });
+        }
+
+    }
+}
 
 const styles = StyleSheet.create({
     container: {

@@ -1,16 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import { Root } from "native-base";
 import Login from './src/components/login/login.js';
 import Register from './src/components/register/register';
 import Home from './src/components/home/home';
-import Dashboard from '../dashboard/dashboard';
+import Dashboard from './src/components/dashboard/dashboard';
 
 export default class App extends React.Component {
 
   render() {
     return (
+      <Root>
           <Routes />
+      </Root>          
     ); 
   }
 }
@@ -24,7 +27,13 @@ const Routes = createStackNavigator({
   },
   Login: { screen: Login },
   Register: { screen: Register },
-  Dashboard: { screen: Dashboard }
+  Dashboard: { 
+    screen: Dashboard,
+    navigationOptions: {
+      title: 'MY NOTES',
+      headerLeft: null
+    }
+  }
 })
 
 const styles = StyleSheet.create({

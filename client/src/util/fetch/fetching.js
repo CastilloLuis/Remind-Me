@@ -45,7 +45,7 @@ export const fetching = (data, method, url, cb) => {
 
         case 'POST':
             {
-                console.log('post')
+                console.log('posting')
                 let datajson = {
                     method: 'POST',
                     body: JSON.stringify(data),
@@ -59,8 +59,10 @@ export const fetching = (data, method, url, cb) => {
                 .then((res) => res.json())
                 .then((data) => {
                     cb(data);
+                    console.log(data);
                 })
                 .catch((err) => {
+                    console.log('here error')
                     console.log(err);
                 })
                 break;
