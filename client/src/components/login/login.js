@@ -39,7 +39,7 @@ export default class Login extends React.Component {
                     <Button 
                         style={styles.loginBtn} 
                         block 
-                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.6:80/notepad/api/api/login.php', (data) => this.handleLogin(data))}
+                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.3:80/notepad/api/api/login.php', (data) => navigate('Dashboard'))}
                     >
                         <Text>LOG IN</Text>
                     </Button>
@@ -52,15 +52,6 @@ export default class Login extends React.Component {
             </Container>
         );
     }
-
-    handleLogin = (data) => {
-        let mydata = data;
-        if(mydata.status === 200) {
-            navigate('Dashboard');
-        } else {
-            navigate('Login');
-        }
-    };
 }
 
 const styles = StyleSheet.create({

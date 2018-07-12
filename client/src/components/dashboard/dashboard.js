@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button , Text} from 'native-base';
+import AddNote from '../addnote/index';
+import { Container, Text } from 'native-base';
+
 import * as h from '../../util/fetch/fetching';
 
 export default class Dashboard extends React.Component {
@@ -8,7 +10,8 @@ export default class Dashboard extends React.Component {
         const { navigate } = this.props.navigation; 
         return (
             <Container>
-                <Text>DASHBOARD</Text>              
+                <Text>MY DASHBOARD 2</Text>
+                <AddNote />             
             </Container>
         );
     }
