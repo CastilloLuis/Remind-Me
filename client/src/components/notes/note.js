@@ -8,14 +8,15 @@ export default class Note extends React.Component {
         this.state = {
             title: '',
             text: '',
-            userid: 1
+            userid: 1,
+            new: false
         }
     }
 
     saveNote = (state) => {
         this.props.saveNote(state);
     }
-    
+
     render() {
         return(
             <Content>
@@ -24,14 +25,14 @@ export default class Note extends React.Component {
                         <Body>
                             <Input 
                                 placeholder="Title of your note" 
-                                value={this.state.title} 
+                                value={((this.props.new) ? this.state.title : this.props.title)} 
                                 onChangeText={(title) => this.setState({title})} 
                                 style={{width: '100%'}}
                             />
                             <Textarea 
                                 rowSpan={3} 
                                 value={this.state.text} 
-                                onChangeText={(text) => this.setState({text})} 
+                                value={((this.props.new) ? this.state.text : this.props.text)} 
                                 bordered placeholder="Write your note :D" 
                                 style={{width: '100%'}}
                             />

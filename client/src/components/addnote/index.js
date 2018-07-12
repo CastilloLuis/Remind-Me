@@ -39,7 +39,8 @@ export default class AddNote extends React.Component {
                     </View>
 
                     <Note 
-                        saveNote={(form) => this.saveNote(form)}
+                        saveNote={(form) => this.saveNote(form)} 
+                        new={true}
                     />
 
                 </Modal>
