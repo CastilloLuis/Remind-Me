@@ -17,6 +17,11 @@ export default class Note extends React.Component {
         this.props.saveNote(state);
     }
 
+    updateNote = (state, noteid) => {
+        state.noteid = noteid;
+        this.props.updateNote(state);
+    }
+
     render() {
         return(
             <Content>
@@ -26,13 +31,26 @@ export default class Note extends React.Component {
                             <Input 
                                 placeholder="Title of your note" 
                                 value={((this.props.new) ? this.state.title : this.props.title)} 
-                                onChangeText={(title) => this.setState({title})} 
-                                style={{width: '100%'}}
+                                onChangeText={((this.props.new) ? 
+                                                (title) => this.setState({title}) : 
+                                                (title) => {
+                                                    this.props.title = title; 
+                                                    this.setState({title});
+                                                }
+                                            )}  
+                                style={{width: '100%'}} 
+                                maxLength={20}
                             />
                             <Textarea 
                                 rowSpan={3} 
                                 value={((this.props.new) ? this.state.text : this.props.text)} 
-                                onChangeText={(text) => this.setState({text})} 
+                                onChangeText={((this.props.new) ?
+                                                (text) => this.setState({text}) :
+                                                (text) => {
+                                                    this.props.text = text,
+                                                    this.setState({text});
+                                                }
+                                            )} 
                                 bordered placeholder="Write your note :)" 
                                 style={{width: '100%'}}
                             />
@@ -45,7 +63,10 @@ export default class Note extends React.Component {
                                     <Col>
                                         <Button 
                                             success 
-                                            onPress={() => this.saveNote(this.state)}
+                                            onPress={() => ((this.props.new) ? 
+                                                            this.saveNote(this.state) : 
+                                                            this.updateNote(this.state, this.props.noteid))
+                                                    }
                                         >
                                             <Text>SAVE</Text>
                                         </Button>   

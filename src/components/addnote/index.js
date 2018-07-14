@@ -11,7 +11,7 @@ export default class AddNote extends React.Component {
     state = {
         modalVisible: false,
     };
-    
+    local = '192.168.0.106:80';
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
     }   
@@ -55,7 +55,7 @@ export default class AddNote extends React.Component {
 
     saveNote = (form) => {
         console.log(form)
-        h.fetching(form, 'POST', 'http://192.168.1.4:80/notepad/api/api/add.php', (data) => {
+        h.fetching(form, 'POST', `http://${this.local}/notepad/api/api/add.php`, (data) => {
             console.log(data);
         });
     }

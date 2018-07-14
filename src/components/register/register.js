@@ -13,6 +13,8 @@ export default class Register extends React.Component {
         }
     }
 
+    local = '192.168.0.106:80';
+
     render() {
         const { navigate } = this.props.navigation; 
         return (
@@ -49,7 +51,7 @@ export default class Register extends React.Component {
                         block 
                         onPress={() => {
                             Keyboard.dismiss;
-                            h.fetching(this.state, 'POST', 'http://192.168.1.3:80/notepad/api/api/register.php', (data) => this.handleRegister(data))
+                            h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/register.php`, (data) => this.handleRegister(data))
                             }
                         }
                     >

@@ -13,6 +13,8 @@ export default class Login extends React.Component {
         this.nav;
     }
 
+    local = '192.168.0.106:80';
+
     render() {
         const { navigate } = this.props.navigation;
         return (
@@ -39,7 +41,7 @@ export default class Login extends React.Component {
                     <Button 
                         style={styles.loginBtn} 
                         block 
-                        onPress={() => h.fetching(this.state, 'POST', 'http://192.168.1.4:80/notepad/api/api/login.php', (data) => navigate('Dashboard'))}
+                        onPress={() => h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/login.php`, (data) => navigate('Dashboard'))}
                     >
                         <Text>LOG IN</Text>
                     </Button>
