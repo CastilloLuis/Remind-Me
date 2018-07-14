@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { Container, Text, Button} from 'native-base';
+import { Container, Text, Button, Spinner} from 'native-base';
 
 import AddNote from '../addnote/index';
 import SwipeItem from '../swipeitem/item';
@@ -11,7 +11,8 @@ import * as h from '../../util/fetch/fetching';
 export default class Dashboard extends React.Component {
 
     state = {
-        notes: []
+        notes: [],
+        loaded: false
     }
     local = '192.168.0.106:80';
     render() {
@@ -20,7 +21,11 @@ export default class Dashboard extends React.Component {
         return (
             <ScrollView>
                 <Container>
-                    <Text>MY DASHBOARD</Text>
+                    <Spinner color="blue"
+                        style={{
+                            display: (((this.state.loaded)) ? 'none' : 'flex')
+                        }}
+                    />
                     {this.state.notes.map((n) => {
                             return (
                                 <SwipeItem 
@@ -46,6 +51,7 @@ export default class Dashboard extends React.Component {
     componentDidMount() {
         h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/get.php?userid=${1}`, (data) => {
             console.log(data);
+            this.setState({loaded: true});
             this.setState({notes: data})
         });
     }
