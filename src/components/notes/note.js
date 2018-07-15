@@ -8,7 +8,7 @@ export default class Note extends React.Component {
         this.state = {
             title: '',
             text: '',
-            userid: 1,
+            userid: this.props.userid,
             new: false
         }
     }

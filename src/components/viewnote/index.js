@@ -16,9 +16,10 @@ export default class ViewNote extends React.Component {
         console.log(state.params)
         return (
             <Note
-                title={state.params.note_title} 
-                text={state.params.note_text} 
-                noteid={state.params.note_id} 
+                title={state.params.data.note_title} 
+                text={state.params.data.note_text} 
+                noteid={state.params.data.note_id} 
+                userid={state.params.data.user_id} 
                 new={false} 
                 updateNote={(state) => 
                     Alert.alert(
@@ -38,6 +39,15 @@ export default class ViewNote extends React.Component {
                     }
             />
         )
+    }
+
+    componentDidMount() {
+        this.getLoggedUser();
+    }
+
+    getLoggedUser = async () => {
+        const value = await AsyncStorage.getItem('loggeduser');
+        this.setState({loggeduser: value});
     }
 
     updateNote = (state, cb) => {

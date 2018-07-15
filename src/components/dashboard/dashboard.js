@@ -16,6 +16,7 @@ export default class Dashboard extends React.Component {
     local = '192.168.0.106:80';
     render() {
         const { navigate, state } = this.props.navigation;
+        console.warn(this.state.notes)
         return (
             <ScrollView>
                 <Container>
@@ -25,10 +26,12 @@ export default class Dashboard extends React.Component {
                             marginTop: '50%'
                         }}
                     />
-                    <Text style={{display: ((this.state.notes.length===0) ? 'flex' : 'none')}}>You don't have notes to show!</Text>
+                    <Text style={{display: ((this.state.notes.length===0) ? 'flex' : 'none'), alignSelf: 'center'}}>
+                        You don't have notes to show!
+                    </Text>
                     {
-                        ((this.state.notes.length !== 0) ? 
-                            false : 
+                        ((this.state.notes.length === 0) ? 
+                            console.log('empty array') : 
                             this.state.notes.map((n) => {
                                 return (
                                     <SwipeItem 
@@ -39,7 +42,7 @@ export default class Dashboard extends React.Component {
                                         new={false}
                                         goToNote={() => {
                                             console.log('view note shit')
-                                            navigate('ViewNote', n);
+                                            navigate('ViewNote', {loggeduser: this.props.loggeduser, data: n});
                                         }}
                                     />                             
                                 )
@@ -55,15 +58,18 @@ export default class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        console.log('xdxdxdxdxdxd');
         this._retrieveData(() => {
             h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/get.php?userid=${this.state.loggeduser}`, (data) => {
-                console.log(data);
-                this.setState({loaded: true})
-                this.setState({notes: data});
+                console.log(data.status)
+                if(data.status === 200) {
+                    this.setState({notes: data.data});
+                    this.setState({loaded: true});
+                } else {
+                    this.setState({notes: []});
+                    this.setState({loaded: false});
+                }
             });
         })
-
     }
 
     deleteNote = (noteid) => {

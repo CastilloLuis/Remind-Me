@@ -10,6 +10,7 @@ import * as h from '../../util/fetch/fetching';
 export default class AddNote extends React.Component {
     state = {
         modalVisible: false,
+        loggeduser: null
     };
     local = '192.168.0.106:80';
     setModalVisible(visible) {
@@ -40,7 +41,8 @@ export default class AddNote extends React.Component {
 
                     <Note 
                         saveNote={(form) => this.saveNote(form)} 
-                        new={true}
+                        new={true} 
+                        userid={this.state.loggeduser}
                     />
 
                 </Modal>
@@ -52,6 +54,15 @@ export default class AddNote extends React.Component {
 
             </Container>
           );
+    }
+
+    componentDidMount() {
+        this.getLoggedUser();
+    }
+
+    getLoggedUser = async () => {
+        const value = await AsyncStorage.getItem('loggeduser');
+        this.setState({loggeduser: value});
     }
 
     saveNote = (form) => {
@@ -66,6 +77,7 @@ export default class AddNote extends React.Component {
     }
 
     _retrieveData = async (cb) => {
+        
         try {
             const value = await AsyncStorage.getItem('loggeduser');
             if(value !== null) {

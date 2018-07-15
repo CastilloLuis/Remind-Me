@@ -1,8 +1,8 @@
 # OSX
 #
 .DS_Store
-Android
-ios
+android/
+ios/
 
 # Xcode
 #

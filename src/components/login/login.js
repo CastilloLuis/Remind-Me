@@ -77,7 +77,6 @@ export default class Login extends React.Component {
         } else {
             alert('Check your credentials');
         }
-
     }
 
     _storeData = async (data) => {
