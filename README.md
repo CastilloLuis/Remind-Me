@@ -2,7 +2,7 @@
 ____
 ABOUT THIS APP:
 > This is my first react native app. This app was developed as a personal project.
-> Simple app made with React Native (using algo native-base)....
+> Simple app made with React Native (using also native-base), to add, modify, delete notes...
 
 ### Programming languages
 ____

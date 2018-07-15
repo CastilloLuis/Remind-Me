@@ -110,7 +110,6 @@ export default class Dashboard extends React.Component {
            alert(error)
          }
     }
-
 }
 
 const styles = StyleSheet.create({
