@@ -28,9 +28,9 @@ export default class ViewNote extends React.Component {
                         [
                           {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                           {text: 'YES', onPress: () => {
-                              this.updateNote(state, () => {
+                              this.updateNote(state, (data) => {
                                   alert('Note updated successfully!!');
-                                  navigate('Dashboard');
+                                  navigate('Dashboard', data);
                                 })
                             }},
                         ],

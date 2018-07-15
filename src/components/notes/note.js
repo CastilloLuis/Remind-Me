@@ -15,6 +15,7 @@ export default class Note extends React.Component {
 
     saveNote = (state) => {
         this.props.saveNote(state);
+        this.props.closeWindow();
     }
 
     updateNote = (state, noteid) => {
@@ -22,6 +23,10 @@ export default class Note extends React.Component {
         ((this.state.text === '') ? this.state.text = this.props.text : false);        
         state.noteid = noteid;
         this.props.updateNote(state);
+    }
+
+    closeWindow = () => {
+        this.props.closeWindow();
     }
 
     render() {
@@ -76,7 +81,7 @@ export default class Note extends React.Component {
                                 </Left>
                                 <Right>
                                     <Col>
-                                        <Button danger>
+                                        <Button danger onPress={() => this.closeWindow()}>
                                             <Text>CANCEL</Text>
                                         </Button>                                                                 
                                     </Col>

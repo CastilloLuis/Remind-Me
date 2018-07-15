@@ -16,7 +16,7 @@ export default class Dashboard extends React.Component {
     local = '192.168.0.106:80';
     render() {
         const { navigate, state } = this.props.navigation;
-        console.warn(this.state.notes)
+        console.warn(state.params);
         return (
             <ScrollView>
                 <Container>
@@ -50,7 +50,8 @@ export default class Dashboard extends React.Component {
                         )
                     }       
                     <AddNote 
-                        logout={() => navigate('Home')}
+                        logout={() => navigate('Home')} 
+                        closeWindow={() => navigate('Dashboard')}
                     />        
                 </Container>
             </ScrollView>
