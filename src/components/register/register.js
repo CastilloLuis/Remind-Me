@@ -12,7 +12,9 @@ export default class Register extends React.Component {
             password: ''
         }
     }
-
+    static navigationOptions = {
+        title: 'USER REGISTER',
+    };
     local = '192.168.0.106:80';
 
     render() {
@@ -49,11 +51,7 @@ export default class Register extends React.Component {
                     <Button 
                         style={styles.registerBtn} 
                         block 
-                        onPress={() => {
-                            Keyboard.dismiss;
-                            h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/register.php`, (data) => this.handleRegister(data))
-                            }
-                        }
+                        onPress={() => this.register(() => navigate('Home'))}
                     >
                         <Text>REGISTER</Text>
                     </Button>
@@ -63,26 +61,35 @@ export default class Register extends React.Component {
         );
     }
 
+    register = (cb) => {
+        Keyboard.dismiss;
+        (
+            (h.validateJSON(this.state)) ?
+            alert('You have to fill all the fields') :
+            h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/register.php`, (data) => this.handleRegister(data, cb))
+        )
+    }
+
     handleChange = name => (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
     }
-
-    handleRegister = (data) => {
-        let mydata = data;
-        if(mydata.status === 200) {
+    
+    handleRegister = (data, cb) => {
+        console.log(data);
+        if(data.status === 200) {
             console.log('asdasd')
             Toast.show({
                 text: 'Welcome to the family!',
                 buttonText: 'Okay',
                 buttonTextStyle: {color: 'white'},
                 buttonStyle: {backgroundColor: '#00db5b'},
-                duration: 2000,
-                onClose: navigate('Home')
+                duration: 3000,
+                onClose: cb()
             });
         } else {
-            console.log('nott')
+            alert('Something went wrong :( Try again!');
         }
     }
 }

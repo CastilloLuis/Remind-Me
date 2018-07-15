@@ -1,72 +1,91 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, AsyncStorage } from 'react-native';
 import { Container, Text, Button, Spinner} from 'native-base';
-
+import PushNotification from 'react-native-push-notification';
 import AddNote from '../addnote/index';
 import SwipeItem from '../swipeitem/item';
-// import Note from '../notes/note';
 
 import * as h from '../../util/fetch/fetching';
 
 export default class Dashboard extends React.Component {
-
     state = {
         notes: [],
-        loaded: false
+        loaded: false,
+        loggeduser: null
     }
     local = '192.168.0.106:80';
     render() {
-        const { navigate } = this.props.navigation;
-
+        const { navigate, state } = this.props.navigation;
         return (
             <ScrollView>
                 <Container>
                     <Spinner color="blue"
                         style={{
-                            display: (((this.state.loaded)) ? 'none' : 'flex')
+                            display: (((this.state.loaded)) ? 'none' : 'flex'),
+                            marginTop: '50%'
                         }}
                     />
-                    {this.state.notes.map((n) => {
-                            return (
-                                <SwipeItem 
-                                    title={n.note_title} 
-                                    noteid={n.note_id} 
-                                    text={n.note_text}
-                                    deleteNote={(noteid) => this.deleteNote(noteid)}
-                                    new={false}
-                                    goToNote={() => {
-                                        console.log('view note shit')
-                                        navigate('ViewNote', n);
-                                    }}
-                                />                             
-                            )
-                        }).reverse()
+                    <Text style={{display: ((this.state.notes.length===0) ? 'flex' : 'none')}}>You don't have notes to show!</Text>
+                    {
+                        ((this.state.notes.length !== 0) ? 
+                            false : 
+                            this.state.notes.map((n) => {
+                                return (
+                                    <SwipeItem 
+                                        title={n.note_title} 
+                                        noteid={n.note_id} 
+                                        text={n.note_text}
+                                        deleteNote={(noteid) => this.deleteNote(noteid)}
+                                        new={false}
+                                        goToNote={() => {
+                                            console.log('view note shit')
+                                            navigate('ViewNote', n);
+                                        }}
+                                    />                             
+                                )
+                            }).reverse()                    
+                        )
                     }       
-                    <AddNote />        
+                    <AddNote 
+                        logout={() => navigate('Home')}
+                    />        
                 </Container>
             </ScrollView>
         );
     }
 
     componentDidMount() {
-        h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/get.php?userid=${1}`, (data) => {
-            console.log(data);
-            this.setState({loaded: true});
-            this.setState({notes: data})
-        });
+        console.log('xdxdxdxdxdxd');
+        this._retrieveData(() => {
+            h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/get.php?userid=${this.state.loggeduser}`, (data) => {
+                console.log(data);
+                this.setState({loaded: true})
+                this.setState({notes: data});
+            });
+        })
+
     }
 
     deleteNote = (noteid) => {
-        console.log('noteid'+noteid)
         h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/delete.php?note_id=${noteid}`, (data) => {
             let mydata = data;
             if(mydata.status === 200) {
                 const newstate = this.state.notes.filter(n => n.note_id !== noteid);
-                console.warn(this.state.notes);
-                console.log(newstate)
                 this.setState({notes: newstate});
             }
         })
+    }
+
+    _retrieveData = async (cb) => {
+        try {
+          const value = await AsyncStorage.getItem('loggeduser');
+          if (value !== null) {
+            this.setState({loggeduser: value});
+            cb();
+          }
+         } catch (error) {
+           alert(error)
+         }
     }
 
 }

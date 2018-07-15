@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button , Text} from 'native-base';
 import * as h from '../../util/fetch/fetching';
 
@@ -12,7 +12,9 @@ export default class Login extends React.Component {
         }
         this.nav;
     }
-
+    static navigationOptions = {
+        title: 'USER LOGIN',
+    };
     local = '192.168.0.106:80';
 
     render() {
@@ -29,7 +31,7 @@ export default class Login extends React.Component {
                             onChangeText={(username) => this.setState({username})}
                         />
                     </Item>
-                        <Item floatingLabel last>
+                        <Item floatingLabel>
                         <Label>Password</Label>
                         <Input 
                             name="password" 
@@ -38,22 +40,55 @@ export default class Login extends React.Component {
                             onChangeText={(password) => this.setState({password})}
                         />
                     </Item>
+                </Form>
                     <Button 
                         style={styles.loginBtn} 
                         block 
-                        onPress={() => h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/login.php`, (data) => navigate('Dashboard'))}
+                        onPress={() => 
+                            {
+                                if(!(h.validateJSON(this.state))){
+                                    h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/login.php`, (data) => this.handleLogin(data, () => navigate('Dashboard')))    
+                                } else {
+                                    alert('Please, fill all the fields!');
+                                }
+                            }
+                        }    
                     >
                         <Text>LOG IN</Text>
                     </Button>
-                    <Button danger
+                    <Button 
+                        transparent 
+                        danger
+                        style={{alignSelf: 'center'}}
                         onPress = {() => navigate('Register')}> 
                         <Text> Or sign up !!</Text> 
                     </Button>
-                </Form>
+                
                 </Content>               
             </Container>
         );
     }
+
+    handleLogin = (data, cb) => {
+        console.log(data)
+        if(data.status === 200) {
+            this._storeData(data.data);
+            cb()
+        } else {
+            alert('Check your credentials');
+        }
+
+    }
+
+    _storeData = async (data) => {
+        try {
+            await AsyncStorage.setItem('loggeduser', data.user_id, (err) => console.log(err));
+        } catch (error) {
+            alert('Error while saving data :( Try it again...');
+            alert(error)
+        }
+    }
+
 }
 
 const styles = StyleSheet.create({
@@ -66,5 +101,7 @@ const styles = StyleSheet.create({
     loginBtn: {
         width: '80%',
         alignSelf: 'center',
+        marginTop: 50,
+        marginBottom: 20
     }
 });

@@ -56,9 +56,9 @@ export const fetching = (data, method, url, cb) => {
                     }
                 };
                 fetch(url, datajson)
-                .then((res) => res.text())
+                .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);                    
+                    //console.log(data);                    
                     cb(data);
                 })
                 .catch((err) => {

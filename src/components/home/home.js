@@ -1,5 +1,5 @@
 import  React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, Image, View, ImageBackground } from 'react-native';
 import { Container, Button, Item, Text, Content } from 'native-base';
 import Register from '../register/register';
 import Login from '../login/login';
@@ -9,36 +9,42 @@ export default class Home extends React.Component {
         const { navigate } = this.props.navigation;     
         return (
             <Container>
-                <Content style={{marginTop: 60}}>
-                    <Image 
-                        source={require('../../assets/applogo.png')}
-                        style={{
-                            width: 120,
-                            height: 120,
-                            alignSelf: 'center',
-                            marginTop: 50
-                        }}
-                    />
-                    <Content style={{
-                        marginTop: '50%',
-                    }}>
-                        <Button
-                            style={styles.btnStyle}
-                            rounded 
-                            block
-                            onPress={() => navigate('Login')}>
-                            <Text>LOG IN</Text>
-                        </Button>
-                        <Button
-                            style={styles.btnStyle}
-                            rounded 
-                            danger
-                            block
-                            onPress={() => navigate('Register')}>
-                            <Text>SIGN UP</Text>
-                        </Button>
+                <ImageBackground
+                    resizeMode={'cover'} 
+                    style={{flex: 1}} 
+                    source={require('../../assets/bg.jpg')}
+                >
+                    <Content style={{marginTop: 60}}>
+                        <Image 
+                            source={require('../../assets/applogo.png')}
+                            style={{
+                                width: 120,
+                                height: 120,
+                                alignSelf: 'center',
+                                marginTop: 50
+                            }}
+                        />
+                        <Content style={{
+                            marginTop: '50%',
+                        }}>
+                            <Button
+                                style={styles.btnStyle}
+                                rounded 
+                                block
+                                onPress={() => navigate('Login')}>
+                                <Text>LOG IN</Text>
+                            </Button>
+                            <Button
+                                style={styles.btnStyle}
+                                rounded 
+                                danger
+                                block
+                                onPress={() => navigate('Register')}>
+                                <Text>SIGN UP</Text>
+                            </Button>
+                        </Content>  
                     </Content>  
-                </Content>           
+                </ImageBackground>         
             </Container>
         );
     }

@@ -18,6 +18,8 @@ export default class Note extends React.Component {
     }
 
     updateNote = (state, noteid) => {
+        ((this.state.title === '') ? this.state.title = this.props.title : false);
+        ((this.state.text === '') ? this.state.text = this.props.text : false);        
         state.noteid = noteid;
         this.props.updateNote(state);
     }

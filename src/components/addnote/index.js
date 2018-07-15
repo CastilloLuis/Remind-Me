@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Text, TouchableHighlight, View} from 'react-native';
+import {Modal, Text, TouchableHighlight, View, AsyncStorage} from 'react-native';
 import { Container, Button, Right, Icon } from 'native-base';
 import OpenButton from './addbutton';
 import CloseButton from './closebutton';
@@ -47,6 +47,7 @@ export default class AddNote extends React.Component {
 
                 <OpenButton 
                     setModalVisible={() => this.setModalVisible()}
+                    logOut={()=>this.logOut(() => this.props.logout())}
                 />
 
             </Container>
@@ -59,4 +60,25 @@ export default class AddNote extends React.Component {
             console.log(data);
         });
     }
+
+    logOut = (cb) => {
+        this._retrieveData(cb);
+    }
+
+    _retrieveData = async (cb) => {
+        try {
+            const value = await AsyncStorage.getItem('loggeduser');
+            if(value !== null) {
+                await AsyncStorage.removeItem('loggeduser');
+                alert('Log out!');
+                cb();
+            }
+        } catch(error) {
+            alert('An error ocurred while log out :( Try it again!');
+            alert(error);
+        }
+    }
+
+
+
 }

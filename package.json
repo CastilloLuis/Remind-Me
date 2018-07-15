@@ -23,7 +23,11 @@
     "native-base": "^2.7.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-camera": "^1.1.4",
     "react-native-maps": "^0.21.0",
+    "react-native-modal-datetime-picker": "^6.0.0",
+    "react-native-push-notification": "^3.0.2",
+    "react-native-timepicker": "^1.0.3",
     "react-navigation": "^2.6.2"
   }
 }

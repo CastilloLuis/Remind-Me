@@ -19,6 +19,7 @@ export default class App extends React.Component {
   }
 }
 
+
 const Routes = createStackNavigator({
   Home: { 
     screen: Home,
@@ -35,7 +36,7 @@ const Routes = createStackNavigator({
       headerLeft: null
     }
   },
-  ViewNote: { screen: ViewNote }
+  ViewNote: { screen: ViewNote },
 })
 
 const styles = StyleSheet.create({
