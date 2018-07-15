@@ -51,7 +51,10 @@ export default class Dashboard extends React.Component {
                     }       
                     <AddNote 
                         logout={() => navigate('Home')} 
-                        closeWindow={() => navigate('Dashboard')}
+                        closeWindow={() => {
+                            navigate('Dashboard');
+                        }}
+                        saveNote={(data) => this.saveNote(data)}
                     />        
                 </Container>
             </ScrollView>
@@ -81,6 +84,19 @@ export default class Dashboard extends React.Component {
                 this.setState({notes: newstate});
             }
         })
+    }
+
+    saveNote = (form) => {
+        h.fetching(form, 'POST', `http://${this.local}/notepad/api/api/add.php`, (data) => {
+            console.log(data);
+            console.log('Note added successfully!');
+            alert('Note added successfully!');
+            this.setState({notes: data.data});
+        });
+    }
+
+    updateNote = (state) => {
+        console.log(state)
     }
 
     _retrieveData = async (cb) => {

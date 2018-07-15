@@ -43,7 +43,7 @@ export default class AddNote extends React.Component {
                         saveNote={(form) => this.saveNote(form)} 
                         new={true} 
                         userid={this.state.loggeduser} 
-                        closeWindow={() => this.props.closeWindow()}
+                        closeWindow={() =>{ this.props.closeWindow(); this.setState({modalVisible: false})}}
                     />
 
                 </Modal>
@@ -68,11 +68,8 @@ export default class AddNote extends React.Component {
 
     saveNote = (form) => {
         console.log(form)
-        h.fetching(form, 'POST', `http://${this.local}/notepad/api/api/add.php`, (data) => {
-            console.log(data);
-            alert('Note added successfully!');
-            this.setState({modalVisible: false});
-        });
+        this.props.saveNote(form);
+        this.setState({modalVisible: false});
     }
 
     logOut = (cb) => {

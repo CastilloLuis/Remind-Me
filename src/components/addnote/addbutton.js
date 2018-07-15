@@ -14,7 +14,7 @@ export default class OpenButton extends React.Component {
     logOut = () => this.props.logOut();
     render() {
         return(
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, zIndex: 10000000 }}>
                 <Fab
                     active={this.state.active}
                     direction="up"

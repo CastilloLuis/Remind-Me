@@ -21,9 +21,10 @@ export default class ViewNote extends React.Component {
                 noteid={state.params.data.note_id} 
                 userid={state.params.data.user_id} 
                 new={false} 
+                closeWindow={() => navigate('Dashboard')}
                 updateNote={(state) => 
                     Alert.alert(
-                        'Are you sure?',
+                        'Are you sure?', 
                         '',
                         [
                           {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
@@ -49,7 +50,7 @@ export default class ViewNote extends React.Component {
         const value = await AsyncStorage.getItem('loggeduser');
         this.setState({loggeduser: value});
     }
-
+    
     updateNote = (state, cb) => {
         console.warn(state)
         h.fetching(state, 'POST', `http://${this.local}/notepad/api/api/update.php`, (data) => {
