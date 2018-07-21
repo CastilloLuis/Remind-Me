@@ -27,7 +27,7 @@ export default class Dashboard extends React.Component {
                         }}
                     />
                     <Text style={{display: ((this.state.notes.length===0) ? 'flex' : 'none'), alignSelf: 'center'}}>
-                        You don't have notes to show!
+                        You dont have notes to show!
                     </Text>
                     {
                         ((this.state.notes.length === 0) ? 
