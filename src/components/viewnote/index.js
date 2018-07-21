@@ -9,7 +9,7 @@ export default class ViewNote extends React.Component {
     static navigationOptions = {
         title: 'UPDATE YOUR NOTE',
     };
-    local = '192.168.0.106:80';
+    local = '192.168.1.3:80';
 
     render() { 
         const {state, navigate} = this.props.navigation;
@@ -29,10 +29,10 @@ export default class ViewNote extends React.Component {
                         [
                           {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                           {text: 'YES', onPress: () => {
-                              this.updateNote(state, (data) => {
+                                this.updateNote(state, (data) => {
                                   alert('Note updated successfully!!');
-                                  navigate('Dashboard', data);
-                                })
+                                  navigate('Dashboard', {fetching: true, data: data});
+                                });
                             }},
                         ],
                         { cancelable: false }

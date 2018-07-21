@@ -15,7 +15,7 @@ export default class Register extends React.Component {
     static navigationOptions = {
         title: 'USER REGISTER',
     };
-    local = '192.168.0.106:80';
+    local = '192.168.1.3:80';
 
     render() {
         const { navigate } = this.props.navigation; 

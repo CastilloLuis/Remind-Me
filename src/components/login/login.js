@@ -15,7 +15,7 @@ export default class Login extends React.Component {
     static navigationOptions = {
         title: 'USER LOGIN',
     };
-    local = '192.168.0.106:80';
+    local = '192.168.1.3:80';
 
     render() {
         const { navigate } = this.props.navigation;
@@ -47,7 +47,7 @@ export default class Login extends React.Component {
                         onPress={() => 
                             {
                                 if(!(h.validateJSON(this.state))){
-                                    h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/login.php`, (data) => this.handleLogin(data, () => navigate('Dashboard')))    
+                                    h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/login.php`, (data) => this.handleLogin(data, () => navigate('Dashboard', {fetching: false})))    
                                 } else {
                                     alert('Please, fill all the fields!');
                                 }

@@ -12,7 +12,7 @@ export default class AddNote extends React.Component {
         modalVisible: false,
         loggeduser: null
     };
-    local = '192.168.0.106:80';
+    local = '192.168.1.3:80';
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
     }   

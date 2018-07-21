@@ -13,10 +13,10 @@ export default class Dashboard extends React.Component {
         loaded: false,
         loggeduser: null
     }
-    local = '192.168.0.106:80';
+    local = '192.168.1.3:80';
     render() {
         const { navigate, state } = this.props.navigation;
-        console.warn(state.params);
+        ((state.params.fetching) ? this.state.notes = state.params.data.data : console.log('xd'));        
         return (
             <ScrollView>
                 <Container>
@@ -42,7 +42,7 @@ export default class Dashboard extends React.Component {
                                         new={false}
                                         goToNote={() => {
                                             console.log('view note shit')
-                                            navigate('ViewNote', {loggeduser: this.props.loggeduser, data: n});
+                                            navigate('ViewNote', {data: n});
                                         }}
                                     />                             
                                 )
@@ -76,6 +76,11 @@ export default class Dashboard extends React.Component {
         })
     }
 
+    updateData = (data) => {
+        console.error(data)
+        //this.setState({notes: data})
+    }
+
     deleteNote = (noteid) => {
         h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/delete.php?note_id=${noteid}`, (data) => {
             let mydata = data;
@@ -96,6 +101,7 @@ export default class Dashboard extends React.Component {
     }
 
     updateNote = (state) => {
+        console.log('helloooooooo');
         console.log(state)
     }
 
