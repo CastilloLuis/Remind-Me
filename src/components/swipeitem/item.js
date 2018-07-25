@@ -28,13 +28,13 @@ export default class SwipeItem extends React.Component {
                                 {this.props.title}
                             </Text>
                             <Right>
-                                <Icon name="arrow-forward" />
+                                <Text style={{fontSize: 25}}>→</Text>
                             </Right>
                         </Button>
                 }
                 right={
                     <Button danger onPress={() => this.deleteNote(this.props.noteid)}>
-                    <Icon active name="trash" />
+                        <Text style={{fontSize: 30}}>✗</Text>
                     </Button>
                 }
 

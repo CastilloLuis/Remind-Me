@@ -49,7 +49,7 @@ export default class Note extends React.Component {
                                 maxLength={20}
                             />
                             <Textarea 
-                                rowSpan={3} 
+                                rowSpan={12} 
                                 value={((this.props.new) ? this.state.text : this.props.text)} 
                                 onChangeText={((this.props.new) ?
                                                 (text) => this.setState({text}) :
@@ -68,6 +68,13 @@ export default class Note extends React.Component {
                             <Row>
                                 <Left>
                                     <Col>
+                                        <Button danger onPress={() => this.closeWindow()}>
+                                            <Text>CANCEL</Text>
+                                        </Button>  
+                                    </Col>
+                                </Left>
+                                <Right>
+                                    <Col>
                                         <Button 
                                             success 
                                             onPress={() => ((this.props.new) ? 
@@ -76,14 +83,7 @@ export default class Note extends React.Component {
                                                     }
                                         >
                                             <Text>SAVE</Text>
-                                        </Button>   
-                                    </Col>
-                                </Left>
-                                <Right>
-                                    <Col>
-                                        <Button danger onPress={() => this.closeWindow()}>
-                                            <Text>CANCEL</Text>
-                                        </Button>                                                                 
+                                        </Button>                                                                                                    
                                     </Col>
                                 </Right>
                             </Row>

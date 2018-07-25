@@ -137,6 +137,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-alarm-notification')
+    compile project(':react-native-alarm')
+    compile project(':react-native-alarm-clock')
     compile project(':react-native-push-notification')
     compile project(':react-native-maps')
     compile project(':react-native-camera')

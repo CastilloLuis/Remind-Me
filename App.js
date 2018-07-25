@@ -36,7 +36,7 @@ const Routes = createStackNavigator({
       headerLeft: null
     }
   },
-  ViewNote: { screen: ViewNote },
+  ViewNote: { screen: ViewNote }
 })
 
 const styles = StyleSheet.create({

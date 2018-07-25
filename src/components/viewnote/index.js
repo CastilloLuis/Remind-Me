@@ -3,13 +3,14 @@ import { Alert } from 'react-native';
 import { Content } from 'native-base';
 import Note from '../notes/note';
 
+import * as env from '../../env/env';
 import * as h from '../../util/fetch/fetching';
 
 export default class ViewNote extends React.Component {
     static navigationOptions = {
         title: 'UPDATE YOUR NOTE',
     };
-    local = '192.168.1.3:80';
+    local = env.BASE_URL;
 
     render() { 
         const {state, navigate} = this.props.navigation;
@@ -53,7 +54,7 @@ export default class ViewNote extends React.Component {
     
     updateNote = (state, cb) => {
         console.warn(state)
-        h.fetching(state, 'POST', `http://${this.local}/notepad/api/api/update.php`, (data) => {
+        h.fetching(state, 'POST', `${this.local}/update.php`, (data) => {
             console.log(data)
             cb(data);
         });

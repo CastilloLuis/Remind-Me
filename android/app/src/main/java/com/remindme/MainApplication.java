@@ -3,6 +3,9 @@ package com.remindme;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.emekalites.react.alarm.notification.ANPackage;
+import com.liang.RNAlarmPackage;
+import pro.equinoxstudio.react_native_alarm_clock.RNAlarmClockPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -26,6 +29,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ANPackage(),
+            new RNAlarmPackage(),
+            new RNAlarmClockPackage(),
             new ReactNativePushNotificationPackage(),
             new MapsPackage(),
             new RNCameraPackage()

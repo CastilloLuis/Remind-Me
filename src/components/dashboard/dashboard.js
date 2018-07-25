@@ -6,6 +6,7 @@ import AddNote from '../addnote/index';
 import SwipeItem from '../swipeitem/item';
 
 import * as h from '../../util/fetch/fetching';
+import * as env from '../../env/env';
 
 export default class Dashboard extends React.Component {
     state = {
@@ -13,10 +14,12 @@ export default class Dashboard extends React.Component {
         loaded: false,
         loggeduser: null
     }
-    local = '192.168.1.3:80';
+
+    local = env.BASE_URL;
+
     render() {
         const { navigate, state } = this.props.navigation;
-        ((state.params.fetching) ? this.state.notes = state.params.data.data : console.log('xd'));        
+        ((state.params.fetching) ? this.state.notes = state.params.data.data : console.log('not updating'));        
         return (
             <ScrollView>
                 <Container>
@@ -63,7 +66,7 @@ export default class Dashboard extends React.Component {
 
     componentDidMount() {
         this._retrieveData(() => {
-            h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/get.php?userid=${this.state.loggeduser}`, (data) => {
+            h.fetching(null, 'GET', `${this.local}/get.php?userid=${this.state.loggeduser}`, (data) => {
                 console.log(data.status)
                 if(data.status === 200) {
                     this.setState({notes: data.data});
@@ -82,7 +85,7 @@ export default class Dashboard extends React.Component {
     }
 
     deleteNote = (noteid) => {
-        h.fetching(null, 'GET', `http://${this.local}/notepad/api/api/delete.php?note_id=${noteid}`, (data) => {
+        h.fetching(null, 'GET', `${this.local}/delete.php?note_id=${noteid}`, (data) => {
             let mydata = data;
             if(mydata.status === 200) {
                 const newstate = this.state.notes.filter(n => n.note_id !== noteid);
@@ -92,11 +95,12 @@ export default class Dashboard extends React.Component {
     }
 
     saveNote = (form) => {
-        h.fetching(form, 'POST', `http://${this.local}/notepad/api/api/add.php`, (data) => {
+        h.fetching(form, 'POST', `${this.local}/add.php`, (data) => {
             console.log(data);
             console.log('Note added successfully!');
             alert('Note added successfully!');
             this.setState({notes: data.data});
+            this.setState({loaded: true});
         });
     }
 

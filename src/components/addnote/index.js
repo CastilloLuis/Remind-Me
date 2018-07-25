@@ -5,8 +5,6 @@ import OpenButton from './addbutton';
 import CloseButton from './closebutton';
 import Note from '../notes/note';
 
-import * as h from '../../util/fetch/fetching';
-
 export default class AddNote extends React.Component {
     state = {
         modalVisible: false,
@@ -35,7 +33,7 @@ export default class AddNote extends React.Component {
                             onPress={() => {
                                 this.setModalVisible(!this.state.modalVisible);
                             }}> 
-                            <Icon name='close' />
+                            <Text style={{fontSize: 30, color: 'black'}}>✗</Text>
                         </Button>
                     </View>
 
@@ -77,7 +75,6 @@ export default class AddNote extends React.Component {
     }
 
     _retrieveData = async (cb) => {
-        
         try {
             const value = await AsyncStorage.getItem('loggeduser');
             if(value !== null) {

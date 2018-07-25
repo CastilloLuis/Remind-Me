@@ -14,7 +14,7 @@ export default class OpenButton extends React.Component {
     logOut = () => this.props.logOut();
     render() {
         return(
-            <View style={{ flex: 1, zIndex: 10000000 }}>
+            <View style={{ flex: 1 }}>
                 <Fab
                     active={this.state.active}
                     direction="up"
@@ -22,12 +22,12 @@ export default class OpenButton extends React.Component {
                     style={{ backgroundColor: 'red' }}
                     position="bottomRight"
                     onPress={() => this.setState({ active: !this.state.active })}>
-                    <Icon name="add" />
+                        <Text>+</Text>
                     <Button style={{ backgroundColor: 'blue' }} onPress={() => this.openModal(true)}>
-                        <Icon name="add" />
+                        <Text>+</Text>
                     </Button>
                     <Button style={{ backgroundColor: 'red' }} onPress={() => this.logOut()}>
-                        <Icon name="close" />
+                        <Text>X</Text>
                     </Button>
                 </Fab>
             </View>  

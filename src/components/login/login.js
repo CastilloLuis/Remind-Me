@@ -1,21 +1,25 @@
 import React from 'react';
 import { StyleSheet, AsyncStorage } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button , Text} from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button , Text, Spinner} from 'native-base';
 import * as h from '../../util/fetch/fetching';
+import * as env from '../../env/env';
 
 export default class Login extends React.Component {
     constructor() {
         super();
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            clicked: false,
         }
         this.nav;
     }
+    
     static navigationOptions = {
         title: 'USER LOGIN',
     };
-    local = '192.168.1.3:80';
+
+    local = env.BASE_URL;
 
     render() {
         const { navigate } = this.props.navigation;
@@ -47,14 +51,23 @@ export default class Login extends React.Component {
                         onPress={() => 
                             {
                                 if(!(h.validateJSON(this.state))){
-                                    h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/login.php`, (data) => this.handleLogin(data, () => navigate('Dashboard', {fetching: false})))    
+                                    this.state.clicked = true;
+                                    console.log(this.local)
+                                    h.fetching(this.state, 'POST', `${this.local}/login.php`, (data) => this.handleLogin(data, () => navigate('Dashboard', {fetching: false})))    
                                 } else {
+                                    //this.state.clicked = false;
                                     alert('Please, fill all the fields!');
                                 }
                             }
                         }    
                     >
-                        <Text>LOG IN</Text>
+                        <Text style={{display: ((this.state.clicked) ? 'none' : 'flex')}}>LOG IN</Text>
+                        <Spinner color="white"
+                        style={{
+                            display: (((this.state.clicked)) ? 'flex' : 'none'),
+                            marginTop: '0%'
+                        }}
+                    />
                     </Button>
                     <Button 
                         transparent 
@@ -70,12 +83,14 @@ export default class Login extends React.Component {
     }
 
     handleLogin = (data, cb) => {
-        console.log(data)
+        console.log(data);
         if(data.status === 200) {
+            this.setState({clicked: false});
             this._storeData(data.data);
             cb()
         } else {
             alert('Check your credentials');
+            this.setState({clicked: false});
         }
     }
 

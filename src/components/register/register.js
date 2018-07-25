@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Keyboard } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button , Text, Toast} from 'native-base';
+import * as env from '../../env/env';
 import * as h from '../../util/fetch/fetching';
 
 export default class Register extends React.Component {
@@ -15,7 +16,7 @@ export default class Register extends React.Component {
     static navigationOptions = {
         title: 'USER REGISTER',
     };
-    local = '192.168.1.3:80';
+    local = env.BASE_URL;
 
     render() {
         const { navigate } = this.props.navigation; 
@@ -66,7 +67,7 @@ export default class Register extends React.Component {
         (
             (h.validateJSON(this.state)) ?
             alert('You have to fill all the fields') :
-            h.fetching(this.state, 'POST', `http://${this.local}/notepad/api/api/register.php`, (data) => this.handleRegister(data, cb))
+            h.fetching(this.state, 'POST', `${this.local}/register.php`, (data) => this.handleRegister(data, cb))
         )
     }
 
